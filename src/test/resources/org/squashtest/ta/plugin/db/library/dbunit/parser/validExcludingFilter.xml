@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+  <filterOutTimestamps/>
+  <filterOutPKs/>
+  <tableExclude tableRegex="tableExclude"/>
+  <columnExclude>columnExclude</columnExclude>
+</filter>

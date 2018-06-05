@@ -1,0 +1,12 @@
+# REFRESH_DBUNIT {dataset} INTO {database} WITH CONFIG {config}
+  =>
+LOAD {config} AS __temp{config}{%%rand1}.file
+CONVERT __temp{config}{%%rand1}.file TO conf.dbunit AS __temp{config}{%%rand2}.conf
+  
+LOAD {dataset} AS __temp{%%rand3}.file
+
+CONVERT __temp{%%rand3}.file TO file(param.relativedate) AS __temp_{%%rand4}.file  
+CONVERT __temp_{%%rand4}.file TO xml(structured) AS __temp_{%%rand5}.xml
+CONVERT __temp_{%%rand5}.xml TO dataset.dbunit(dataset) AS __temp_{%%rand6}.dbu
+
+EXECUTE insert WITH __temp_{%%rand6}.dbu ON {database} USING $(operation:refresh),__temp{config}{%%rand2}.conf AS __temp_{%%rand7}.result

@@ -1,0 +1,16 @@
+# DELETE_DBUNIT {dataset} FROM {database} USING {ppkfilter}
+=>
+
+// Load and convert the dbunit dataset  
+LOAD {dataset} AS __{%%r1}.file
+CONVERT __{%%r1}.file TO file(param.relativedate) AS __{%%r2}.file
+CONVERT __{%%r2}.file TO xml(structured) AS __{%%r3}.xml
+CONVERT __{%%r3}.xml TO dataset.dbunit(dataset) AS __{%%r4}.dbu
+
+// Load and convert the pseudo primary key filter
+LOAD {ppkfilter} AS __{%%r5}.file
+CONVERT __{%%r5}.file TO properties(structured) USING $(legacyPPkCheck:true) AS __{%%r6}.props
+CONVERT  __{%%r6}.props TO conf.dbunit.ppk(from.properties) AS __{%%r7}.ppk
+
+// Execute delete operation using the pseudo primary key filter
+EXECUTE delete WITH __{%%r4}.dbu ON {database} USING __{%%r7}.ppk,$(operation : delete) AS __{%%r8}.result

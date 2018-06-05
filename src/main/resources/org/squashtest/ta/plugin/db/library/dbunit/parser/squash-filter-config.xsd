@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+
+        This file is part of the Squashtest platform.
+        Copyright (C) 2011 - 2018 Henix
+
+        See the NOTICE file distributed with this work for additional
+        information regarding copyright ownership.
+
+        This is free software: you can redistribute it and/or modify
+        it under the terms of the GNU Lesser General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        this software is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU Lesser General Public License for more details.
+
+        You should have received a copy of the GNU Lesser General Public License
+        along with this software.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="filter" type="filter"></xs:element>
+	<xs:complexType name="filter">
+		<xs:sequence>
+			<xs:element name="filterOutTimestamps" type="filterOutTimestampsType" maxOccurs="1" minOccurs="0" />
+			<xs:element name="filterOutPKs" maxOccurs="1"
+				minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"></xs:whiteSpace>
+
+						<xs:length value="0"></xs:length>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="tableExclude" type="tableExclude"
+					maxOccurs="unbounded" minOccurs="1" nillable="false">
+				</xs:element>
+				<xs:element name="tableInclude" type="tableInclude"
+					maxOccurs="unbounded" minOccurs="1" nillable="false">
+				</xs:element>
+			</xs:choice>
+
+			<xs:element name="columnExclude" type="xs:string"
+				maxOccurs="unbounded" minOccurs="0" nillable="false">
+				<xs:annotation>
+					<xs:documentation>
+						You may define here a list of column names to
+						exclude from all tables. Each entry is a regex
+						defining the name(s) of columns to remove from
+						all tables.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+        </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tableInclude">
+        <xs:annotation>
+        	<xs:documentation>Table include defines the inclusion of a table or set of tables. 
+It may contain either a list of included columns defined by regex (only these will be retained by the filter) or a list of excluded columns defined by regex (the filter will retain all columns but these)</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+			<xs:element name="columnInclude" type="xs:string"
+				maxOccurs="unbounded" minOccurs="0" nillable="false">
+				<xs:annotation>
+					<xs:documentation>
+						this element contains a regex to define the name
+						of columns accepted by the filter.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="columnExclude" type="xs:string" 
+				maxOccurs="unbounded" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						this element contains a regex to define the name
+						of columns rejected by the filter.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="tableRegex" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					regex to define the name of included tables
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="tableExclude">
+        <xs:annotation>
+        	<xs:documentation>
+        		Table exclude defines the exclusion of a table or set of tables. 
+			</xs:documentation>
+        </xs:annotation>
+		<xs:attribute name="tableRegex" type="xs:string"
+			use="required">
+			<xs:annotation>
+				<xs:documentation>
+					regex to define the name of excluded tables
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="filterOutTimestampsType">
+		<xs:all>
+			<xs:element name="timeStamp" maxOccurs="1" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+
+						<xs:length value="0"></xs:length>
+						<xs:whiteSpace value="collapse"></xs:whiteSpace>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="time" maxOccurs="1" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"></xs:whiteSpace>
+
+						<xs:length value="0"></xs:length>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="date" maxOccurs="1" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"></xs:whiteSpace>
+
+						<xs:length value="0"></xs:length>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+</xs:schema>

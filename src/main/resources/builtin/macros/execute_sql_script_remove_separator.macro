@@ -1,0 +1,6 @@
+# EXECUTE_SQL_SCRIPT_BY_REMOVING_SEPARATOR {file} ON {database} AS {result}
+  =>
+LOAD {file} AS __temp{%%rand1}.file
+CONVERT __temp{%%rand1}.file TO file(param.relativedate) AS __temp{%%rand2}.file
+CONVERT __temp{%%rand2}.file TO script.sql AS __temp_{%%rand3}.script
+EXECUTE execute WITH __temp_{%%rand3}.script ON {database} USING $(keep.separator:false) AS {result}

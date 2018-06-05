@@ -1,0 +1,14 @@
+# ASSERT_DBUNIT TARGET {database} EQUALS {dataset} WITH FILTER {filter}
+  =>
+
+EXECUTE get.all WITH $() ON {database} AS __actual_{%%rand1}.dbu
+
+LOAD {dataset} AS __temp{%%rand2}.file
+CONVERT __temp{%%rand2}.file TO file(param.relativedate) AS __temp_{%%rand3}.file
+CONVERT __temp_{%%rand3}.file TO xml(structured) AS __temp_{%%rand4}.xml
+CONVERT __temp_{%%rand4}.xml TO dataset.dbunit(dataset) AS __expected_{%%rand5}.dbu
+
+LOAD {filter} AS __filter_{%%rand6}.file
+CONVERT __filter_{%%rand6}.file TO filter.dbunit(filter) AS __filter_{%%rand7}.filter
+
+ASSERT __actual_{%%rand1}.dbu IS equal THE __expected_{%%rand5}.dbu USING __filter_{%%rand7}.filter

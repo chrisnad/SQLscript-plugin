@@ -1,0 +1,14 @@
+# ASSERT_DBUNIT TARGET {database} CONTAINS {dataset} WITH CONFIG {config}
+  =>
+
+LOAD {config} AS __temp{config}{%%rand1}.file
+CONVERT __temp{config}{%%rand1}.file TO conf.dbunit AS __temp{config}{%%rand2}.conf
+
+EXECUTE get.all WITH $() ON {database} USING __temp{config}{%%rand2}.conf AS __actual_{%%rand3}.dbu
+
+LOAD {dataset} AS __temp{%%rand4}.file
+CONVERT __temp{%%rand4}.file TO file(param.relativedate) AS __temp_{%%rand5}.file
+CONVERT __temp_{%%rand5}.file TO xml(structured) AS __temp_{%%rand6}.xml
+CONVERT __temp_{%%rand6}.xml TO dataset.dbunit(dataset) AS __expected_{%%rand7}.dbu
+
+ASSERT __actual_{%%rand3}.dbu DOES contain THE __expected_{%%rand7}.dbu

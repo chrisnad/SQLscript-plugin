@@ -1,0 +1,5 @@
+<?xml version="1.1" encoding="utf-8"?>
+<dataset>
+<knownTable TABLE_CAT="" TABLE_SCHEM="" TABLE_NAME="knownTable" COLUMN_NAME="ONE" KEY_SEQ="{null}"/>
+<knownTable TABLE_CAT="" TABLE_SCHEM="" TABLE_NAME="knownTable" COLUMN_NAME="ANOTHER" KEY_SEQ="{null}"/>
+</dataset>

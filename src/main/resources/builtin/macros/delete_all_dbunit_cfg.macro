@@ -1,0 +1,11 @@
+# DELETE_ALL_DBUNIT {dataset} FROM {database} WITH CONFIG {config}
+  =>
+LOAD {config} AS __temp{config}{%%rand1}.file
+CONVERT __temp{config}{%%rand1}.file TO conf.dbunit AS __temp{config}{%%rand2}.conf
+  
+LOAD {dataset} AS __temp_{%%rand3}.file
+
+CONVERT __temp_{%%rand3}.file TO xml(structured) AS __temp_{%%rand4}.xml
+CONVERT __temp_{%%rand4}.xml TO dataset.dbunit(dataset) AS __temp_{%%rand5}.dbu
+
+EXECUTE delete WITH __temp_{%%rand5}.dbu USING __temp{config}{%%rand2}.conf ON {database} AS __temp_{%%rand6}.result

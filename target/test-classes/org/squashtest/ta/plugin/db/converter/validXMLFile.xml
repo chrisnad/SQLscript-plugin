@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<dataset>
+    <TEST_TABLE COL0="TT row 0 col 0" 
+                COL1="TT row 0 col 1"
+                COL2="TT row 0 col 2"/> 
+    <TEST_TABLE COL0="TT row 1 col 0" 
+                COL1="TT row 1 col 1"
+                COL2="TT row 1 col 2"/> 
+    <TEST_TABLE COL0="[NULL]" 
+                COL1="TT row 2 col 1"
+                COL2="TT row 2 col 2"/>
+    <SECOND_TABLE COL0="ST row 0 col 0" 
+                  COL1="ST row 0 col 1" />
+    <SECOND_TABLE COL0="ST row 1 col 0" 
+                  COL1="[null]" />
+    <EMPTY_TABLE/>
+</dataset>

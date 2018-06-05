@@ -1,0 +1,12 @@
+# UPDATE_DBUNIT {dataset} INTO {database} USING {ppkfilter}
+  =>
+LOAD {dataset} AS __temp{%%rand1}.file
+CONVERT __temp{%%rand1}.file TO file(param.relativedate) AS __temp{%%rand2}.file  
+CONVERT __temp{%%rand2}.file TO xml(structured) AS __temp{%%rand3}.xml
+CONVERT __temp{%%rand3}.xml TO dataset.dbunit(dataset) AS __temp{%%rand4}.dbu
+
+LOAD {ppkfilter} AS __temp{%%rand5}.file
+CONVERT __temp{%%rand5}.file TO properties(structured) USING $(legacyPPkCheck:true) AS __temp{%%rand6}.props
+CONVERT __temp{%%rand6}.props TO conf.dbunit.ppk(from.properties) AS __temp{%%rand7}.ppk
+
+EXECUTE insert WITH __temp{%%rand4}.dbu ON {database} USING __temp{%%rand7}.ppk,$(operation:update) AS __temp_{%%rand8}.result

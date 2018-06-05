@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+	<tableInclude tableRegex="table1">
+		<columnInclude>toto</columnInclude>
+		<columnInclude>tutu</columnInclude>
+	</tableInclude>
+	<tableInclude>
+		<columnExclude>tutu</columnExclude>
+	</tableInclude>
+	<columnExclude>id</columnExclude>
+</filter>

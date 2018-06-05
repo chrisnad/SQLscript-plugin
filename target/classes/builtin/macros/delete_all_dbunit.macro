@@ -1,0 +1,9 @@
+# DELETE_ALL_DBUNIT {dataset} FROM {database}
+  =>
+  
+LOAD {dataset} AS __temp_{%%rand1}.file
+
+CONVERT __temp_{%%rand1}.file TO xml(structured) AS __temp_{%%rand2}.xml
+CONVERT __temp_{%%rand2}.xml TO dataset.dbunit(dataset) AS __temp_{%%rand3}.dbu
+
+EXECUTE delete WITH __temp_{%%rand3}.dbu ON {database} AS __temp_{%%rand4}.result

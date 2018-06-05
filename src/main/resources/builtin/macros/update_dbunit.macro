@@ -1,0 +1,9 @@
+# UPDATE_DBUNIT {dataset} INTO {database}
+  =>
+LOAD {dataset} AS __temp{%%rand1}.file
+
+CONVERT __temp{%%rand1}.file TO file(param.relativedate) AS __temp_{%%rand2}.file  
+CONVERT __temp_{%%rand2}.file TO xml(structured) AS __temp_{%%rand3}.xml
+CONVERT __temp_{%%rand3}.xml TO dataset.dbunit(dataset) AS __temp_{%%rand4}.dbu
+
+EXECUTE insert WITH __temp_{%%rand4}.dbu ON {database} USING $(operation:update) AS __temp_{%%rand5}.result

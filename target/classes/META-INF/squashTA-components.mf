@@ -1,0 +1,6 @@
+pluginName: org.squashtest.ta.plugin.db
+basePackage: org.squashtest.ta.plugin.db.assertions
+basePackage: org.squashtest.ta.plugin.db.commands
+basePackage: org.squashtest.ta.plugin.db.converter
+basePackage: org.squashtest.ta.plugin.db.resources
+basePackage: org.squashtest.ta.plugin.db.targets

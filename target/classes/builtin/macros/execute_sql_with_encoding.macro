@@ -1,0 +1,8 @@
+# EXECUTE_SQL {file} ON {database} AS {result} WITH ENCODING {encoding}
+  =>
+LOAD {file} AS __temp{%%rand1}.file
+DEFINE $(encoding:{encoding}) AS encoding{%%rand1}.opts
+
+CONVERT __temp{%%rand1}.file TO file(param.relativedate) AS __temp{%%rand2}.file USING encoding{%%rand1}.opts
+CONVERT __temp{%%rand2}.file TO query.sql(query) AS __temp_{%%rand3}.query USING encoding{%%rand1}.opts
+EXECUTE execute WITH __temp_{%%rand3}.query ON {database} AS {result}
